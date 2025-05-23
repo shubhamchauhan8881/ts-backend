@@ -1,0 +1,80 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+
+Table User{
+  username int [pk, not null]
+  date_joined timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  email varchar
+  first_name varchar
+  last_name varhar
+  phone varchar
+  about varchar
+  profile image 
+  date_of_birth timestamp
+  last_login timestamp
+  is_staff bool
+  is_active bool
+
+}
+
+
+Table Room {
+  id int [primary key]
+  author int
+  room_size integer
+  used_space integer
+  room_name varchar
+  description varchar
+  room_type varchar [note: 'either private or public']
+  created_at timestamp [default: `now()`]
+  room_pass varchar [note: 'hashed password']
+  logo image
+  allow_others_to_upload bool
+  make_visible_on_search bool
+  tags integer
+}
+
+Table RoomTags {
+  id int [primary key]
+  name varchar
+}
+
+Table Files{
+  id int [primary key]
+  room int
+  file file
+  uploaded_at timestamp
+  last_modified timestamp
+  file_size integer
+  file_name varchar
+  file_type varchar [note: 'image,pdf,binary,text etc'] 
+  visibility bool
+  owner integer
+}
+
+Table RoomMembers{
+  id int [primary key]
+  room int
+  member int
+  joined_at timestamp
+  role varchar
+  message varchar
+  approved varchar
+}
+
+Table Notifications{
+  id int [primary key]
+  is_read bool
+  created_at timestamp
+  user int
+  message varchar
+}
+
+Ref room_tags : Room.tags < RoomTags.id
+Ref user_rooms: Room.author > User.username
+Ref: Room.id < Files.id
+Ref: User.username < Files.owner
+Ref room_members: Room.id < RoomMembers.room
+Ref user_notification: User.username < Notifications.user

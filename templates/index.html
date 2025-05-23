@@ -1,0 +1,18 @@
+{% load static %}
+<!doctype html>
+<html lang="en" data-theme="mytheme">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+  <script type="module" crossorigin src="{% static 'assets/index.js' %}"></script>
+  <link rel="stylesheet" crossorigin href="{% static 'assets/index.css' %}">
+</head>
+
+<body class="h-screen">
+  <div id="root" class="h-full"></div>
+</body>
+
+</html>
